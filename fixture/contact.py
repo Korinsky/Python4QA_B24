@@ -4,7 +4,7 @@ class ContactHelper:
 
     def create(self, contact):
         wd = self.app.wd
-        wd.find_element_by_link_text("add new").click()
+        self.app.navigation.open_add_contact_page()
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").send_keys(contact.firstname)
         wd.find_element_by_name("middlename").send_keys(contact.middlename)
@@ -17,8 +17,22 @@ class ContactHelper:
         wd.find_element_by_name("email").click()
         wd.find_element_by_name("email").send_keys(contact.email)
         wd.find_element_by_name("submit").click()
-        wd.find_element_by_link_text("home page").click()
+        self.app.navigation.open_home_page()
 
-    def open_add_contact_page(self):
+    def modify_first(self, new_text):
         wd = self.app.wd
-        wd.find_element_by_link_text("add new").click()
+        wd.find_element_by_xpath("//tr[2]//img[@title='Edit']").click()
+        wd.find_element_by_name("firstname").click()
+        wd.find_element_by_name("firstname").send_keys(new_text)
+        wd.find_element_by_name("middlename").click()
+        wd.find_element_by_name("middlename").send_keys(new_text)
+        wd.find_element_by_name("lastname").click()
+        wd.find_element_by_name("lastname").send_keys(new_text)
+        wd.find_element_by_name("update").click()
+        self.app.navigation.open_home_page()
+
+    def delete_first(self):
+        wd = self.app.wd
+        wd.find_element_by_xpath("//tr[3]//input[@name='selected[]']").click()
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        wd.switch_to_alert().accept()
