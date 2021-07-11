@@ -4,7 +4,7 @@ class NavigationHelper:
 
     def open_home_page(self):
         wd = self.app.wd
-        wd.get("http://localhost/addressbook")
+        wd.find_element_by_link_text("home").click()
 
     def open_add_contact_page(self):
         wd = self.app.wd
