@@ -54,7 +54,7 @@ class ContactHelper:
         self.app.navigation.open_home_page()
         contacts = []
         for element in wd.find_elements_by_css_selector("td.center input"):
-            text = element.get_attribute("title")
+            email = element.get_attribute("accept")
             id = element.get_attribute("id")
-            contacts.append(Contact(title=text, id=id))
+            contacts.append(Contact(email=email, id=id))
         return contacts
