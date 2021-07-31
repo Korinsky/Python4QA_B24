@@ -28,10 +28,6 @@ class GroupHelper:
         self.return_to_groups_pages()
         self.group_cache = None
 
-    def select_group_by_index(self, index):
-        wd = self.app.wd
-        wd.find_elements_by_name("selected[]")[index].click()
-
     def modify_first_group(self):
         self.modify_group_by_index(0)
 
@@ -44,6 +40,33 @@ class GroupHelper:
         wd.find_element_by_name("update").click()
         self.return_to_groups_pages()
         self.group_cache = None
+
+    def delete_group_by_id(self, id):
+        wd = self.app.wd
+        self.app.navigation.open_group_page()
+        self.select_group_by_id(id)
+        wd.find_element_by_name("delete").click()
+        self.return_to_groups_pages()
+        self.group_cache = None
+
+    def modify_group_by_id(self, id, group):
+        wd = self.app.wd
+        self.app.navigation.open_group_page()
+        self.select_group_by_id(id)
+        wd.find_element_by_name("edit").click()
+        self.fill_group_form(group)
+        wd.find_element_by_name("update").click()
+        self.return_to_groups_pages()
+        self.group_cache = None
+
+    def select_group_by_index(self, index):
+        wd = self.app.wd
+        wd.find_elements_by_name("selected[]")[index].click()
+
+    def select_group_by_id(self, id):
+        wd = self.app.wd
+        print('id - %s' % id)
+        wd.find_element_by_css_selector("input[value='%s']" % id).click()
 
     def fill_group_form(self, group):
         self.change_field_value("group_name", group.name)
@@ -75,14 +98,4 @@ class GroupHelper:
                 self.group_cache.append(Group(name=text, id=id))
         return list(self.group_cache)
 
-    def delete_group_by_id(self, id):
-        wd = self.app.wd
-        self.app.navigation.open_group_page()
-        self.select_group_by_index_id(id)
-        wd.find_element_by_name("delete").click()
-        self.return_to_groups_pages()
-        self.group_cache = None
 
-    def select_group_by_index_id(self, id):
-        wd = self.app.wd
-        wd.find_element_by_css_selector("input[value='%s']" % id).click()
