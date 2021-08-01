@@ -15,7 +15,6 @@ def test_firstname_home_vs_edit(app):
     index = randrange(app.contact.count())
     contact_from_home_page = app.contact.get_contact_list()[index]
     contact_from_edit_page = app.contact.get_contact_info_from_edit_page(index)
-    print("проверяем контакт id %s, firstname %s" % (contact_from_home_page.id, contact_from_home_page.firstname))
     assert contact_from_home_page.firstname == contact_from_edit_page.firstname
 
 
