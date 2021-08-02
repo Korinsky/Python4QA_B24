@@ -1,7 +1,7 @@
 import pymysql
 from model.group import Group
 from model.contact import Contact
-import re
+
 
 class DbFixture:
 
@@ -12,7 +12,7 @@ class DbFixture:
         self.password = password
         self.connection = pymysql.connect(host=host, database=name, user=user, password=password, autocommit=True)
 
-    def get_group_list(self):
+    def get_groups_list(self):
         list = []
         cursor = self.connection.cursor()
         try:
@@ -24,8 +24,7 @@ class DbFixture:
             cursor.close()
         return list
 
-
-    def get_contact_list(self):
+    def get_contacts_list(self):
         list = []
         cursor = self.connection.cursor()
         try:
@@ -40,3 +39,21 @@ class DbFixture:
 
     def destroy(self):
         self.connection.close()
+
+    def get_contact_in_group(self):
+        dict = {}
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute("select id, group_id from address_in_groups where deprecated='0000-00-00 00:00:00'")
+            for row in cursor:
+                (id, group_id) = row
+                if id in dict.keys():
+                    value = dict.get(id)
+                    value.append(group_id)
+                else:
+                    value = []
+                    value.append(group_id)
+                    dict[id] = value
+        finally:
+            cursor.close()
+        return dict

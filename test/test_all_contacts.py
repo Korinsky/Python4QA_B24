@@ -10,7 +10,7 @@ def check_miss_contact(app):
 
 def test_all_contacts(app, db):
     check_miss_contact(app)
-    db_contacts_list = db.get_contact_list()
+    db_contacts_list = db.get_contacts_list()
     for db_contact in db_contacts_list:
         id = db_contact.id
         page_contact = app.contact.get_contact_data_by_id(id)

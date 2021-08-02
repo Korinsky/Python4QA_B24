@@ -94,7 +94,7 @@ class ContactHelper:
 
     contact_cache = None
 
-    def get_contact_list(self):
+    def get_contacts_list(self):
         if self.contact_cache is None:
             wd = self.app.wd
             wd.find_element_by_xpath("//li[@class='admin']").click()
@@ -169,3 +169,20 @@ class ContactHelper:
         return Contact(homephone=homephone, mobilephone=mobilephone,
                        workphone=workphone, secondaryphone=secondaryphone)
 
+    def add_contact_in_group(self, contact_id, group_id):
+        wd = self.app.wd
+        self.app.navigation.open_home_page()
+        self.select_contact_by_id(contact_id)
+        wd.find_element_by_name("to_group").click()
+        wd.find_element_by_xpath("//div/select/option[@value='%s']" % group_id).click()
+        wd.find_element_by_name("add").click()
+        wd.find_element_by_xpath("//*[text() = 'Users added.']")
+
+    def remove_contact_from_group(self,  contact_id, group_id):
+        wd = self.app.wd
+        self.app.navigation.open_home_page()
+        wd.find_element_by_xpath("//form/select").click()
+        wd.find_element_by_xpath("//form/select/option[@value='%s']" % group_id).click()
+        self.select_contact_by_id(contact_id)
+        wd.find_element_by_name("remove").click()
+        wd.find_element_by_xpath("//*[text() = 'Users removed. ']")

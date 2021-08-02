@@ -13,7 +13,7 @@ def check_miss_contact(app):
 def test_firstname_home_vs_edit(app):
     check_miss_contact(app)
     index = randrange(app.contact.count())
-    contact_from_home_page = app.contact.get_contact_list()[index]
+    contact_from_home_page = app.contact.get_contacts_list()[index]
     contact_from_edit_page = app.contact.get_contact_info_from_edit_page(index)
     assert contact_from_home_page.firstname == contact_from_edit_page.firstname
 
@@ -21,7 +21,7 @@ def test_firstname_home_vs_edit(app):
 def test_lastname_home_vs_edit(app):
     check_miss_contact(app)
     index = randrange(app.contact.count())
-    contact_from_home_page = app.contact.get_contact_list()[index]
+    contact_from_home_page = app.contact.get_contacts_list()[index]
     contact_from_edit_page = app.contact.get_contact_info_from_edit_page(index)
     assert contact_from_home_page.lastname == contact_from_edit_page.lastname
 
@@ -29,7 +29,7 @@ def test_lastname_home_vs_edit(app):
 def test_address_home_vs_edit(app):
     check_miss_contact(app)
     index = randrange(app.contact.count())
-    contact_from_home_page = app.contact.get_contact_list()[index]
+    contact_from_home_page = app.contact.get_contacts_list()[index]
     contact_from_edit_page = app.contact.get_contact_info_from_edit_page(index)
     assert contact_from_home_page.address == contact_from_edit_page.address
 
@@ -37,7 +37,7 @@ def test_address_home_vs_edit(app):
 def test_email_home_vs_edit(app):
     check_miss_contact(app)
     index = randrange(app.contact.count())
-    contact_from_home_page = app.contact.get_contact_list()[index]
+    contact_from_home_page = app.contact.get_contacts_list()[index]
     contact_from_edit_page = app.contact.get_contact_info_from_edit_page(index)
     assert contact_from_home_page.all_emails_from_home_page == merge_emails_like_on_home_page(contact_from_edit_page)
 
@@ -45,7 +45,7 @@ def test_email_home_vs_edit(app):
 def test_phone_home_vs_edit(app):
     check_miss_contact(app)
     index = randrange(app.contact.count())
-    contact_from_home_page = app.contact.get_contact_list()[index]
+    contact_from_home_page = app.contact.get_contacts_list()[index]
     contact_from_edit_page = app.contact.get_contact_info_from_edit_page(index)
     assert contact_from_home_page.all_phones_from_home_page == merge_phones_like_on_home_page(contact_from_edit_page)
 
